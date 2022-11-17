@@ -23,12 +23,61 @@ namespace LogicLayer
         {
             serializeDeserialize = new SerializeDeserialize();
 
-            //populate the Lists with data from json files
-            Sales = serializeDeserialize.DeserializeSales();
-            Customers = serializeDeserialize.DeserializeCustomers();
-            Repairs = serializeDeserialize.DeserializeRepairs();
-            Sellers = serializeDeserialize.DeserializeSellers();
-            Products = serializeDeserialize.DeserializeProducts();
+            //if the file doesn't exist we make a new one and serialize a list to it
+            if (File.Exists("Sales.json"))
+            {
+                Sales = serializeDeserialize.DeserializeSales();
+            }
+            else
+            {
+                using (FileStream fs = File.Create("Sales.json")) { };
+                Sales = new List<Sale>();
+                serializeDeserialize.Serialize(Sales);
+            }
+
+            if (File.Exists("Customers.json"))
+            {
+                Customers = serializeDeserialize.DeserializeCustomers();
+            }
+            else
+            {
+                using (FileStream fs = File.Create("Customers.json")) { };
+                Customers = new List<Customer>();
+                serializeDeserialize.Serialize(Customers);
+            }
+
+            if (File.Exists("Repairs.json"))
+            {
+                Repairs = serializeDeserialize.DeserializeRepairs();
+            }
+            else
+            {
+                using (FileStream fs = File.Create("Repairs.json")) { };
+                Repairs = new List<Repair>();
+                serializeDeserialize.Serialize(Repairs);
+            }
+
+            if (File.Exists("Sellers.json"))
+            {
+                Sellers = serializeDeserialize.DeserializeSellers();
+            }
+            else
+            {
+                using (FileStream fs = File.Create("Sellers.json")) { };
+                Sellers = new List<Seller>();
+                serializeDeserialize.Serialize(Sellers);
+            }
+
+            if (File.Exists("Products.json"))
+            {
+                Products = serializeDeserialize.DeserializeProducts();
+            }
+            else
+            {
+                using (FileStream fs = File.Create("Products.json")) { };
+                Products = new List<Product>();
+                serializeDeserialize.Serialize(Products);
+            }
         }
 
         //as GUI has no access to ModelLayer we get the count of products in the list and then ask this class for each products name, id, etc.
